@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: practica2inst1
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: practica2inst2
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: practica2inst3

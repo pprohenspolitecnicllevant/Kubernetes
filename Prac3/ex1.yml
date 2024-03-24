@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ex1
+  namespace: practica3
+spec:
+  containers:
+    - name: args1
+      image: debian
+      command: ["echo"]
+      args: 
+        - "Me mola aixo de kubernetes"

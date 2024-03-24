@@ -1,0 +1,35 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+  - role: control-plane
+    kubeadmConfigPatches:
+      - |
+        kind: InitConfiguration
+        nodeRegistration:
+          kubeletExtraArgs:
+            node-labels: "ingress-ready=true"
+    extraPortMappings:
+      - containerPort: 80
+        hostPort: 18080
+        protocol: TCP
+      - containerPort: 443
+        hostPort: 18443
+        protocol: TCP
+  - role: worker
+    extraMounts:
+      - hostPath: /tmp/worker1
+        containerPath: /work
+    labels:
+      size: Large
+  - role: worker
+    extraMounts:
+      - hostPath: /tmp/worker2
+        containerPath: /work
+    labels:
+      size: Medium
+  - role: worker
+    extraMounts:
+      - hostPath: /tmp/worker3
+        containerPath: /work
+    labels:
+      size: Small

@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-server-replicaset
+  labels:
+    app: nginx-app
+    tier: frontend
+spec:
+  # modifica las réplicas según tu caso de uso
+  replicas: 6
+  selector:
+    matchLabels:
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        tier: frontend
+    spec:
+      containers:
+      - name: nginx-server-pere
+        image: nginx

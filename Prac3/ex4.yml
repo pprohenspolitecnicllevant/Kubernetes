@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ex4
+  namespace: practica3
+spec:
+  containers:
+    - name: expvc
+      image: alpine
+      command: ["/bin/sh", "-c"]
+      args:
+        - echo "En Pere va estar aqui" > /mnt/hola.txt && sleep 3600
+      volumeMounts:
+        - mountPath: "/mnt"
+          name: pv-ex4
+  volumes:
+    - name: pv-ex4
+      persistentVolumeClaim:
+        claimName: ex4-pvc
