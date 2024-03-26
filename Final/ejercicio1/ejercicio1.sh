@@ -13,13 +13,19 @@ kubectl wait --namespace ingress-nginx --for=condition=ready pod --selector=app.
 # Creem el configmap
 kubectl apply -f ./configmap.yml
 
-# Deploy del sistema web
+# Creem el persistentVolume i el persistentVolumeClaim
+kubectl apply -f ./pv.yml
+kubectl apply -f ./pvc.yml
+
+# Deploy del 3 serveis
+kubectl apply -f ./db-deployment.yml
 kubectl apply -f ./web-deployment.yml
 kubectl apply -f ./content-deployment.yml
 
 # Services
+kubectl apply -f ./service-db.yml
 kubectl apply -f ./service-web.yml
 kubectl apply -f ./service-content.yml
 
-# Service
+# Ingress
 kubectl apply -f ./ingress.yml

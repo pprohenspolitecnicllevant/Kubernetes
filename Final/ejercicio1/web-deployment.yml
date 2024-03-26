@@ -17,55 +17,55 @@ spec:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
-            - matchExpressions:
-              - key: tier
-                operator: In
-                values:
-                - front
+              - matchExpressions:
+                  - key: tier
+                    operator: In
+                    values:
+                      - front
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: app
-                operator: In
-                values:
-                - web
-            topologyKey: "kubernetes.io/hostname"  
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - web
+              topologyKey: "kubernetes.io/hostname"
       containers:
-      - name: web
-        image: jlaredo/formacion-web-server-amd64
-        ports:
-        - containerPort: 80
-          protocol: TCP
-        resources:
-          requests:
-            cpu: "100m"
-            memory: "64Mi"
-          limits:
-            cpu: "200m"
-            memory: "128Mi"
-        env:
-        - name: DB_USER
-          valueFrom:
-            configMapKeyRef:
-              name: my-configmap
-              key: DB_USER
-        - name: DB_HOSTNAME
-          valueFrom:
-            configMapKeyRef:
-              name: my-configmap
-              key: DB_HOSTNAME
-        - name: DB_PASSWORD
-          value: "Kubernetes"
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 80
-          initialDelaySeconds: 5
-          periodSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 80
-          initialDelaySeconds: 5
-          periodSeconds: 10
+        - name: web
+          image: jlaredo/formacion-web-server-amd64
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "64Mi"
+            limits:
+              cpu: "200m"
+              memory: "128Mi"
+          env:
+            - name: DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: my-configmap
+                  key: DB_USER
+            - name: DB_HOSTNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: my-configmap
+                  key: DB_HOSTNAME
+            - name: DB_PASSWORD
+              value: "Kubernetes"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
